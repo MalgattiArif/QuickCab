@@ -33,16 +33,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             // Server settings
             $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com"; // Gmail SMTP server
             $mail->SMTPAuth = true;
-            $mail->Username = "suhailbhairekdar@gmail.com"; // Your Gmail address
-            $mail->Password = "vccm omld jvti yuur";   // Your Gmail App Password (see below)
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
+            $mail->Host = getenv('SMTP_HOST');
+            $mail->Username = getenv('SMTP_USER');
+            $mail->Password = getenv('SMTP_PASS');
+            $mail->SMTPSecure = getenv('SMTP_SECURE');
+            $mail->Port = getenv('SMTP_PORT');
 
             // Recipients
             $mail->setFrom("no-reply@quickcab.com", "QuickCab");
-            $mail->addAddress("suhailbhairekdar@gmail.com"); // Your receiving email
+            $mail->addAddress(getenv('RECEIVING_EMAIL')); // Your receiving email
 
             // Content
             $mail->isHTML(false);
